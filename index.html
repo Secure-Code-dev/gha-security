@@ -659,70 +659,8 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features" style="background: white;">
-        <div class="container">
-            <div class="section-title animate-on-scroll">
-                <h2>Why Choose Secure Code</h2>
-                <p>Comprehensive security analysis tools designed to protect your applications from vulnerabilities and threats.</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Vulnerability Detection</h3>
-                    <p>Advanced static analysis engine that identifies security vulnerabilities and potential exploits in your codebase.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Enterprise Security</h3>
-                    <p>Bank-grade encryption and security protocols to protect your sensitive code and intellectual property.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Real-time Analysis</h3>
-                    <p>Instant feedback on security issues as you code, with intelligent suggestions for remediation.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🔧</div>
-                    <h3>CI/CD Integration</h3>
-                    <p>Seamlessly integrate with your existing DevOps pipeline for automated security testing.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">📊</div>
-                    <h3>Detailed Reports</h3>
-                    <p>Comprehensive security reports with risk assessment and compliance tracking for audits.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">💎</div>
-                    <h3>Expert Support</h3>
-                    <p>24/7 security expert support to help you understand and resolve complex security issues.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text animate-on-scroll">
-                    <h2>About Secure Code LLC</h2>
-                    <p>Founded by cybersecurity experts, Secure Code LLC specializes in developing advanced code analysis tools that help organizations identify and fix security vulnerabilities before they become threats.</p>
-                    <p>Our team combines decades of experience in cybersecurity, software engineering, and threat intelligence to create tools that are both powerful and easy to use.</p>
-                    <p>We're committed to making secure coding practices accessible to developers of all skill levels, from solo developers to enterprise teams.</p>
-                    <a href="#contact" class="btn-primary" style="display: inline-block; margin-top: 1rem;">Join Our Journey</a>
-                </div>
-                <div class="about-image animate-on-scroll">
-                    <div class="about-image-placeholder">
-                        Your Team Photo Here
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
+    <section id="about" class="stats">
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item animate-on-scroll">
@@ -749,48 +687,57 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-title animate-on-scroll">
-                <h2>Get In Touch</h2>
-                <p>Ready to transform your business? Let's discuss how we can help you achieve your goals.</p>
+                <h2>Open a Customer Issue</h2>
+                <p>Found a bug or have an enhancement request? Create an issue in our GitHub repository to get help from our team.</p>
             </div>
             <div class="contact-content">
                 <div class="contact-form animate-on-scroll">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Company</label>
-                            <input type="text" id="company" name="company">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
+                    <h3 style="margin-bottom: 1.5rem; color: #1a1a1a;">Report an Issue</h3>
+                    <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.7;">Help us improve our GitHub Actions by reporting bugs or requesting new features. Click the appropriate button below to create an issue in our repository.</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <a href="https://github.com/securecode-llc/secure-analyzer/issues/new?template=bug_report.md&title=[BUG]%20" 
+                           class="download-btn" 
+                           style="background: #dc2626; margin-top: 0;">
+                            <span>🐛</span> Report a Bug
+                        </a>
+                        
+                        <a href="https://github.com/securecode-llc/secure-analyzer/issues/new?template=feature_request.md&title=[FEATURE]%20" 
+                           class="download-btn" 
+                           style="background: #059669; margin-top: 0;">
+                            <span>✨</span> Request Feature
+                        </a>
+                        
+                        <a href="https://github.com/securecode-llc/secure-analyzer/issues/new?title=[SUPPORT]%20" 
+                           class="download-btn" 
+                           style="background: #7c3aed; margin-top: 0;">
+                            <span>❓</span> Get Support
+                        </a>
+                        
+                        <a href="https://github.com/securecode-llc/secure-analyzer/issues" 
+                           class="btn-secondary" 
+                           style="text-align: center; padding: 1rem; border-radius: 10px; margin-top: 1rem;">
+                            📋 View All Issues
+                        </a>
+                    </div>
                 </div>
                 <div class="animate-on-scroll">
-                    <h3 style="margin-bottom: 1.5rem; color: #1a1a1a;">Let's Build Something Amazing</h3>
-                    <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.7;">Whether you're a startup looking to disrupt the market or an enterprise seeking digital transformation, we're here to turn your vision into reality.</p>
+                    <h3 style="margin-bottom: 1.5rem; color: #1a1a1a;">Issue Guidelines</h3>
+                    <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.7;">Before creating an issue, please check if a similar issue already exists. Provide as much detail as possible to help us understand and resolve your request quickly.</p>
                     
                     <div style="margin-bottom: 1.5rem;">
-                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">📧 Email</h4>
-                        <p style="color: #64748b;">security@securecode-llc.com</p>
+                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">🐛 Bug Reports</h4>
+                        <p style="color: #64748b;">Include steps to reproduce, expected vs actual behavior, and environment details.</p>
                     </div>
                     
                     <div style="margin-bottom: 1.5rem;">
-                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">📞 Phone</h4>
-                        <p style="color: #64748b;">+1 (555) SEC-CODE</p>
+                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">✨ Feature Requests</h4>
+                        <p style="color: #64748b;">Describe the feature, use case, and how it would benefit other users.</p>
                     </div>
                     
                     <div>
-                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">📍 Location</h4>
-                        <p style="color: #64748b;">Austin, TX</p>
+                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">❓ Support</h4>
+                        <p style="color: #64748b;">For general questions about usage, configuration, or troubleshooting.</p>
                     </div>
                 </div>
             </div>
