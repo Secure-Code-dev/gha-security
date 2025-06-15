@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Code LLC - Advanced Security Solutions</title>
+    <title>GitHub Actions Security Policies - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -12,606 +12,1015 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #1a1a1a;
-            overflow-x: hidden;
+            color: #24292f;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1012px;
+            margin: 0 auto;
+            padding: 0 16px;
         }
 
         /* Header */
         .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
+            background-color: #24292f;
+            color: white;
             padding: 1rem 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            border-bottom: 1px solid #30363d;
         }
 
-        .nav {
-            max-width: 1200px;
-            margin: 0 auto;
+        .header-content {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            justify-content: center;
         }
 
-        .logo {
+        .header h1 {
             font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 600;
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
+        .github-link {
+            color: #58a6ff;
             text-decoration: none;
-            color: #333;
             font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
         }
 
-        .nav-links a:hover {
-            color: #667eea;
+        .github-link:hover {
+            text-decoration: underline;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s ease;
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.05"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.08"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 1;
-            position: relative;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #667eea;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid white;
-        }
-
-        .btn-primary:hover {
-            background: transparent;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 5rem 0;
-            background: #f8fafc;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
+        .breadcrumb {
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 0.875rem;
+            color: #656d76;
         }
 
-        .section-title p {
+        .breadcrumb a {
+            color: #0969da;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #24292f;
+            text-align: center;
+        }
+
+        .page-description {
             font-size: 1.1rem;
-            color: #64748b;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #1a1a1a;
-        }
-
-        .feature-card p {
-            color: #64748b;
+            color: #656d76;
+            margin-bottom: 2rem;
             line-height: 1.6;
         }
 
-        /* Download specific styles */
-        .download-card {
-            text-align: center;
-            position: relative;
+        /* Security Policy Item */
+        .policy-item {
+            background-color: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
         }
 
-        .download-info {
+        .policy-header {
+            background-color: #24292f;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .policy-content {
+            padding: 1.5rem;
+        }
+
+        .policy-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .policy-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .policy-section h4 {
             display: flex;
-            justify-content: space-between;
-            margin: 1rem 0;
-            padding: 0.5rem 0;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .version, .size {
-            font-size: 0.9rem;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        .download-btn {
-            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            text-decoration: none;
+            font-size: 1rem;
             font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-            width: 100%;
-            justify-content: center;
+            margin-bottom: 0.75rem;
+            color: #24292f;
         }
 
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .download-btn span {
+        .emoji {
             font-size: 1.1rem;
         }
 
-        /* Stats Section */
-        .stats {
-            padding: 3rem 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .problem { color: #cf222e; }
+        .vulnerability { color: #9a6700; }
+        .insecure { color: #cf222e; }
+        .secure { color: #1a7f37; }
+        .remediation { color: #0969da; }
+
+        .policy-section p {
+            margin-bottom: 0.75rem;
+            color: #24292f;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
+        .policy-section ul {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
         }
 
-        .stat-item h3 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+        .policy-section li {
+            margin-bottom: 0.25rem;
         }
 
-        .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        /* Code blocks */
+        .code-block {
+            background-color: #24292f;
+            color: #e6edf3;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            overflow-x: auto;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.875rem;
+            line-height: 1.45;
         }
 
-        /* Contact Section */
-        .contact {
-            padding: 5rem 0;
-            background: #f8fafc;
+        .code-block pre {
+            margin: 0;
         }
 
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: start;
+        .inline-code {
+            background-color: rgba(175, 184, 193, 0.2);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.85em;
         }
 
-        .contact-form {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        /* Alert boxes */
+        .alert {
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+        }
+
+        .alert-note {
+            background-color: #ddf4ff;
+            border-left-color: #0969da;
+            color: #0969da;
+        }
+
+        .alert-important {
+            background-color: #fff8c5;
+            border-left-color: #d1a650;
+            color: #7d4e00;
+        }
+
+        .alert strong {
+            font-weight: 600;
+        }
+
+        /* Example blocks */
+        .example-block {
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            margin: 0.75rem 0;
+        }
+
+        .example-header {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-bottom: 1px solid #d0d7de;
+        }
+
+        .insecure-header {
+            background-color: #ffebe9;
+            color: #cf222e;
+        }
+
+        .secure-header {
+            background-color: #dafbe1;
+            color: #1a7f37;
+        }
+
+        .example-content {
+            padding: 0;
+        }
+
+        .example-content .code-block {
+            margin: 0;
+            border-radius: 0 0 6px 6px;
         }
 
         /* Footer */
         .footer {
-            background: #1a1a1a;
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #333;
-            padding-top: 1rem;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid #d0d7de;
+            color: #656d76;
             text-align: center;
-            color: #666;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer a {
+            color: #0969da;
+            text-decoration: none;
         }
 
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+        .footer a:hover {
+            text-decoration: underline;
         }
 
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Mobile Responsiveness */
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 480px) {
             .container {
                 padding: 0 1rem;
             }
             
-            .hero {
-                padding: 0 1rem;
+            .page-title {
+                font-size: 1.5rem;
             }
             
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .policy-content {
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
-        <nav class="nav">
-            <div class="logo">Github Action - Securing Workflow</div>
-            <ul class="nav-links">
-            </ul>
-            <a href="Policy-Guide.html" class="cta-button">Policy Guide</a>
-        </nav>
+        <div class="container">
+            <div class="header-content">
+                <h1>GitHub Action - Securing Workflow</h1>
+            </div>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Github Workflow Security</h1>
-            <p>Protect Github Action Workflows</p>
-            <div class="hero-buttons">
-                <a href="#downloads" class="btn-primary">Download Now</a>
-                <a href="#about" class="btn-secondary">Learn More</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Downloads Section -->
-    <section id="downloads" class="features">
+    <main class="main-content">
         <div class="container">
-            <div class="section-title animate-on-scroll">
-                <h2>Runner Compatible Actions</h2>
-                <p>Get started with our security tools. Available for all major platforms with regular updates and new features.</p>
-            </div>
-            
-            <!-- Download Cards -->
-            <div class="features-grid" style="max-width: 900px; margin: 0 auto;">
-                <div class="feature-card animate-on-scroll download-card">
-                    <div class="feature-icon">🪟</div>
-                    <h3>Windows</h3>
-                    <p>Compatible with Windows 10 and 11. Full feature support with native Windows integration.</p>
-                    <div class="download-info">
-                        <span class="version">v2.1.0</span>
-                        <span class="size">45 MB</span>
-                    </div>
-                    <a href="https://github.com/secure-code-dev/gha-security/releases/latest/download/secure-analyzer-windows.exe" class="download-btn" download>
-                        <span>📥</span> Download for Windows
-                    </a>
-                </div>
-                
-                <div class="feature-card animate-on-scroll download-card">
-                    <div class="feature-icon">🐧</div>
-                    <h3>Linux</h3>
-                    <p>Universal Linux build supporting Ubuntu, Fedora, CentOS, and other major distributions.</p>
-                    <div class="download-info">
-                        <span class="version">v2.1.0</span>
-                        <span class="size">38 MB</span>
-                    </div>
-                    <a href="https://github.com/secure-code-dev/gha-security/releases/latest/download/secure-analyzer-linux.tar.gz" class="download-btn" download>
-                        <span>📥</span> Download for Linux
-                    </a>
-                </div>
-                
-                <div class="feature-card animate-on-scroll download-card">
-                    <div class="feature-icon">🍎</div>
-                    <h3>macOS</h3>
-                    <p>Native macOS application with Apple Silicon support. Compatible with macOS 11.0 and later.</p>
-                    <div class="download-info">
-                        <span class="version">v2.1.0</span>
-                        <span class="size">42 MB</span>
-                    </div>
-                    <a href="https://github.com/secure-code-dev/gha-security/releases/latest/download/secure-analyzer-macos.dmg" class="download-btn" download>
-                        <span>📥</span> Download for macOS
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+            <nav class="breadcrumb">
+                <a href="https://github.com/secure-code-dev/gha-security">secure-code-dev/gha-security</a> / Policy-Guide.md
+            </nav>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title animate-on-scroll">
-                <h2>Open a Customer Issue</h2>
-                <p>Found a bug or have an enhancement request? Create an issue in our GitHub repository to get help from our team.</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-form animate-on-scroll">
-                    <h3 style="margin-bottom: 1.5rem; color: #1a1a1a;">Report an Issue</h3>
-                    <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.7;">Help us improve our GitHub Actions by reporting bugs or requesting new features. Click the appropriate button below to create an issue in our repository.</p>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <a href="https://github.com/secure-code-dev/gha-security/issues/new?template=bug_report.md&title=[BUG]%20" 
-                           class="download-btn" 
-                           style="background: #dc2626; margin-top: 0;">
-                            <span>🐛</span> Report a Bug
-                        </a>
-                        
-                        <a href="https://github.com/secure-code-dev/gha-security/issues/new?template=feature_request.md&title=[FEATURE]%20" 
-                           class="download-btn" 
-                           style="background: #059669; margin-top: 0;">
-                            <span>✨</span> Request Feature
-                        </a>
-                        
-                        <a href="https://github.com/secure-code-dev/gha-security/issues/new?template=support_template.md&title=[SUPPORT]%20" 
-                           class="download-btn" 
-                           style="background: #7c3aed; margin-top: 0;">
-                            <span>❓</span> Get Support
-                        </a>
-                    </div>
-                </div>
-                <div class="animate-on-scroll">
-                    <h3 style="margin-bottom: 1.5rem; color: #1a1a1a;">Issue Guidelines</h3>
-                    <p style="color: #64748b; margin-bottom: 2rem; line-height: 1.7;">Before creating an issue, please check if a similar issue already exists. Provide as much detail as possible to help us understand and resolve your request quickly.</p>
-                    
-                    <div style="margin-bottom: 1.5rem;">
-                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">🐛 Bug Reports</h4>
-                        <p style="color: #64748b;">Include steps to reproduce, expected vs actual behavior, and environment details.</p>
+            <h1 class="page-title">GitHub Actions Security Best Practices</h1>
+            <p class="page-description">
+                This guide explains common GitHub Actions security policies with comprehensive details, insecure usage examples, and step-by-step remediation instructions. It also describes the vulnerabilities each bad practice can expose, to help you better understand the risk landscape.
+            </p>
+
+            <!-- GHA-SEC001 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC001: Plaintext Secrets</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Secrets should not be printed to logs or echoed in a way that exposes them. Logs are often accessible to users and secrets could be compromised.</p>
                     </div>
                     
-                    <div style="margin-bottom: 1.5rem;">
-                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">✨ Feature Requests</h4>
-                        <p style="color: #64748b;">Describe the feature, use case, and how it would benefit other users.</p>
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Exposure of credentials</strong> — If a secret is printed to the console output, it can be harvested by insiders, attackers monitoring logs, or even by external contributors in public repositories. Secrets like API keys, tokens, or database passwords can then be used to gain unauthorized access.</p>
                     </div>
-                    
-                    <div>
-                        <h4 style="color: #1a1a1a; margin-bottom: 0.5rem;">❓ Support</h4>
-                        <p style="color: #64748b;">For general questions about usage, configuration, or troubleshooting.</p>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: echo "${{ secrets.MY_SECRET }}"</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: some_command --token "${{ secrets.MY_SECRET }}"</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Never log secrets directly.</li>
+                            <li>Use secrets only in commands where they are essential.</li>
+                            <li>Ensure the command or tool used does not print the secret accidentally.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2025 <a href="https://secure-code.dev/" style="color: #667eea; text-decoration: none;">Secure Code LLC</a>. All rights reserved.</p>
+            <!-- GHA-SEC002 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC002: Untrusted Input in Shell Commands</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>GitHub events such as pull request titles, issue bodies, etc., can be manipulated by attackers. Using them in shell commands without sanitization can lead to injection vulnerabilities.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Shell Injection Attacks</strong> — Attackers can inject malicious payloads (e.g., shell commands, scripts) via untrusted fields like PR titles. This can lead to arbitrary code execution within the GitHub runner environment.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: echo "${{ github.event.pull_request.title }}"</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: |
+    title="${{ github.event.pull_request.title }}"
+    echo "Received title"</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Assign untrusted inputs to local variables.</li>
+                            <li>Avoid using direct command interpolation.</li>
+                            <li>Validate and sanitize inputs wherever possible.</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-    </footer>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+            <!-- GHA-SEC003 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC003: Minimally Scoped Credentials</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>By default, the <span class="inline-code">GITHUB_TOKEN</span> is granted all permissions. Overprivileged tokens increase the attack surface.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Privilege Escalation and Unauthorized Actions</strong> — If a token with broad access is compromised, attackers can push code, create releases, modify workflows, or access sensitive repository information.</p>
+                    </div>
 
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre># No permissions block</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>permissions:
+  contents: read
+  issues: write</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Explicitly define the minimum required permissions in each workflow.</li>
+                            <li>Start with zero permissions and incrementally add only necessary ones.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 
-        // Header background change on scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-            }
-        });
-    </script>
-</body>
-</html>
+            <!-- GHA-SEC004 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC004: Unknown Actions</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Third-party actions may be malicious or compromised. Using actions from unknown sources increases risk.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Supply Chain Attacks</strong> — Attackers can introduce backdoors or malicious scripts into open-source actions, leading to credential theft, unauthorized code execution, or data exfiltration.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- uses: some-user/unknown-action@v1</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- uses: actions/checkout@v4</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Use actions from trusted sources (<span class="inline-code">actions</span>, <span class="inline-code">github</span>, internally audited ones).</li>
+                            <li>Maintain an <span class="inline-code">allowlist</span> in the <span class="inline-code">policy.yaml</span> for safe third-party actions in your organization.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC005 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC005: Non-specific Version Tags</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Using version tags like <span class="inline-code">@v1</span> or <span class="inline-code">@main</span> can lead to unexpected changes if the action is updated.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Unexpected Behavior or Compromise</strong> — If an action author updates the version tag with malicious changes, your workflows could automatically pull the malicious update without any notice.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- uses: actions/setup-node@v1
+# or
+- uses: actions/setup-node@latest
+# or
+- uses: actions/setup-node@main</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- uses: actions/setup-node@v1.4.2
+# or
+- uses: actions/setup-node@&lt;commit-SHA&gt;</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Pin actions to specific semantic versions or commit SHAs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC006 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC006: Self-hosted Runners</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Self-hosted runners can be compromised if exposed to untrusted code, especially in public repositories.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Runner Takeover and Persistence</strong> — Attackers could run code that installs backdoors, modifies runners, or escalates to broader infrastructure compromise.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>runs-on: [self-hosted]</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>runs-on: ubuntu-latest</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Use GitHub-hosted runners for public workflows.</li>
+                            <li>Restrict self-hosted runner access to trusted repositories only.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC007 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC007: `pull_request_target` and External SHA</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>The <span class="inline-code">pull_request_target</span> event runs with write permissions on the base repo but can checkout attacker-controlled code.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Repository Compromise</strong> — An attacker could create a PR with malicious code, which, if checked out insecurely, could be executed with elevated permissions.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>on: pull_request_target
+jobs:
+  test:
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>on: pull_request</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Use <span class="inline-code">pull_request</span> instead of <span class="inline-code">pull_request_target</span> for untrusted contributions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC008 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC008: Artifact Uploads with Sensitive Files</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Sensitive files like <span class="inline-code">.env</span>, <span class="inline-code">.pem</span>, or private keys should not be uploaded as artifacts.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Secret Leakage via Artifacts</strong> — Uploaded artifacts may be accessible to unauthorized users or automated systems, exposing critical secrets.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- uses: actions/upload-artifact@v3
+  with:
+    path: .env</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- uses: actions/upload-artifact@v3
+  with:
+    path: logs/output.txt</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Audit uploaded artifacts regularly.</li>
+                            <li>Exclude sensitive files from uploads.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC009 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC009: Missing Checksum for Downloads</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Downloaded scripts or binaries should be validated to ensure integrity.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Remote Code Execution</strong> — If an attacker modifies a downloaded script, and the checksum is not verified, arbitrary malicious code could be executed in your CI environment.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: curl -sSL http://example.com/script.sh | bash</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: |
+    curl -sSL -o script.sh http://example.com/script.sh
+    echo "abcd1234  script.sh" | sha256sum -c -
+    bash script.sh</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Validate all downloads before execution using SHA256 or GPG signatures.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC010 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC010: Secrets in Global `env:`</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Secrets should be scoped to steps. Using them globally increases exposure.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Increased Secret Exposure</strong> — Secrets available globally can be accidentally leaked if printed or used in any other untrusted step.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>env:
+  SECRET_TOKEN: ${{ secrets.MY_SECRET }}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: ./script.sh
+  env:
+    SECRET_TOKEN: ${{ secrets.MY_SECRET }}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Always scope secrets at the minimal necessary level (preferably individual steps).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC011 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC011: Auto-Approve Pull Requests</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Automating approval can allow malicious changes to be merged without human oversight.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Unauthorized Code Merge</strong> — Malicious PRs could be auto-approved and merged, leading to supply chain attacks, credential leaks, or infrastructure damage.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: gh pr review --approve</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre># Use manual review from maintainers</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Always require human review, even if PRs come from trusted contributors.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC012 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC012: `continue-on-error: true`</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Using <span class="inline-code">continue-on-error: true</span> hides failures, leading to false positives.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Silent Failures and Insecure Builds</strong> — Failures in critical security checks, test cases, or build steps might be ignored, resulting in insecure or broken deployments.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: make test
+  continue-on-error: true</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: make test
+  continue-on-error: false</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Use <span class="inline-code">continue-on-error</span> cautiously, only when failure is acceptable.</li>
+                            <li>Prefer explicit conditional logic (<span class="inline-code">if: failure()</span>).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC013 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC013: Deprecated `set-output` Command</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>The <span class="inline-code">::set-output</span> command is deprecated and less secure.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Output Injection</strong> — Deprecated commands like <span class="inline-code">::set-output</span> can be vulnerable to unexpected input parsing issues and injection attacks.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: echo "::set-output name=version::1.0"</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- run: echo "version=1.0" >> "$GITHUB_OUTPUT"</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Migrate to the modern <span class="inline-code">$GITHUB_OUTPUT</span> method for all workflows.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GHA-SEC014 -->
+            <div class="policy-item">
+                <div class="policy-header">GHA-SEC014: Use of Legacy GCP Authentication</div>
+                <div class="policy-content">
+                    <div class="policy-section">
+                        <h4 class="problem"><span class="emoji">❗</span> Problem</h4>
+                        <p>Using <span class="inline-code">credentials_json</span> for authentication with Google Cloud is a legacy method that involves managing long-lived secrets, which is less secure.</p>
+                    </div>
+                    
+                    <div class="policy-section">
+                        <h4 class="vulnerability"><span class="emoji">🔍</span> Vulnerability</h4>
+                        <p><strong>Secret Leakage Risk</strong> — Embedding static service account keys like <span class="inline-code">credentials_json</span> increases the risk of accidental leakage, misuse, or unauthorized access if the key is exposed in the CI/CD pipeline or version control.</p>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="insecure"><span class="emoji">🚫</span> Insecure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header insecure-header">❌ Insecure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- name: Authenticate with GCP
+  id: 'auth'
+  uses: 'google-github-actions/auth@v2'
+  with:
+    credentials_json: '&lt;YOUR-SERVICE-ACCOUNT-FILE-AS-INPUT&gt;'</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="secure"><span class="emoji">✅</span> Secure Example</h4>
+                        <div class="example-block">
+                            <div class="example-header secure-header">✅ Secure</div>
+                            <div class="example-content">
+                                <div class="code-block">
+                                    <pre>- name: Authenticate to GCP
+  uses: google-github-actions/auth@v2
+  with:
+    token_format: 'access_token'
+    workload_identity_provider: '&lt;YOUR-WORKFLOW-IDENTITY-PROVIDER&gt;'
+    service_account: '&lt;SERVICE-ACCOUNT&gt;'</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="policy-section">
+                        <h4 class="remediation"><span class="emoji">🛠️</span> Remediation</h4>
+                        <ul>
+                            <li>Stop using <span class="inline-code">credentials_json</span> for authentication.</li>
+                            <li>Set up a <a href="https://cloud.google.com/iam/docs/workload-identity-federation">Workload Identity Federation provider</a> in your GCP project.</li>
+                            <li>This enables short-lived, automatically rotated tokens without needing long-lived secrets.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="alert alert-note">
+                <strong>📌 Additional Note:</strong><br>
+                Each policy rule in <span class="inline-code">policy.yaml</span> supports an <span class="inline-code">exclude</span> parameter. If you want to intentionally allow a specific workflow or action to violate a policy (for example, due to justified exceptions), you can list the workflow or action path under the <span class="inline-code">exclude</span> field.
+            </div>
+
+            <div class="policy-item">
+                <div class="policy-header">Example Policy Configuration</div>
+                <div class="policy-content">
+                    <div class="code-block">
+                        <pre>policies:
+  minimally-scoped-credentials:
+      code: GHA-SEC003
+      level: warning
+      description: "Workflow is missing 'permissions' block"
+      missing_block: permissions
+      exclude:
+        - .github/workflows/new-changes.yaml</pre>
+                    </div>
+                    <p>In the above example, the <span class="inline-code">new-changes.yaml</span> workflow will be excluded from the "Minimally Scoped Credentials" (GHA-SEC003) policy check during scanning.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-important">
+                <strong>📌 Important:</strong> Regularly audit workflows for these patterns. Keep up-to-date with GitHub Actions <a href="https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions">Security Best Practices</a>.
