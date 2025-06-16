@@ -212,10 +212,12 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #fbbf24 0%, #000000 50%, #fbbf24 100%);
+            background-size: 200% 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: moveGradient 3s ease-in-out infinite;
         }
 
         .section-title p {
@@ -454,7 +456,6 @@
             <div class="logo">Github Action - Securing Workflow</div>
             <ul class="nav-links">
             </ul>
-            <a href="Policy-Guide.html" class="cta-button">Policy Guide</a>
         </nav>
     </header>
 
@@ -465,7 +466,7 @@
             <p>Protect Github Action Workflows</p>
             <div class="hero-buttons">
                 <a href="#downloads" class="btn-primary">Download Now</a>
-                <a href="#about" class="btn-secondary">Learn More</a>
+                <a href="Policy-Guide.html" class="btn-secondary">Policy Guide</a>
             </div>
         </div>
     </section>
