@@ -321,6 +321,100 @@
             font-size: 1.1rem;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .close {
+            color: #64748b;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #1a1a1a;
+        }
+
+        .instruction-code {
+            background-color: #1a1a1a;
+            color: #e5e7eb;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #047857;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         /* Stats Section */
         .stats {
             padding: 3rem 0;
@@ -494,11 +588,11 @@
                     <p>Compatible with Windows 10 and 11. Full feature support with native Windows integration.</p>
                     <div class="download-info">
                         <span class="version">v2.1.0</span>
-                        <span class="size">45 MB</span>
+                        <span class="size">SHA: a1b2c3d4</span>
                     </div>
-                    <a href="https://github.com/secure-code-dev/gha-security/releases/latest/download/secure-analyzer-windows.exe" class="download-btn" download>
-                        <span>📥</span> Download for Windows
-                    </a>
+                    <button class="download-btn" onclick="showInstructions('windows')">
+                        <span>📋</span> Windows
+                    </button>
                 </div>
                 
                 <div class="feature-card animate-on-scroll download-card">
@@ -511,11 +605,11 @@
                     <p>Universal Linux build supporting Ubuntu, Fedora, CentOS, and other major distributions.</p>
                     <div class="download-info">
                         <span class="version">v2.1.0</span>
-                        <span class="size">38 MB</span>
+                        <span class="size">SHA: b2c3d4e5</span>
                     </div>
-                    <a href="https://github.com/secure-code-dev/gha-security/releases/latest/download/secure-analyzer-linux.tar.gz" class="download-btn" download>
-                        <span>📥</span> Download for Linux
-                    </a>
+                    <button class="download-btn" onclick="showInstructions('linux')">
+                        <span>📋</span> Linux
+                    </button>
                 </div>
                 
                 <div class="feature-card animate-on-scroll download-card">
@@ -528,11 +622,11 @@
                     <p>Native macOS application with Apple Silicon support. Compatible with macOS 11.0 and later.</p>
                     <div class="download-info">
                         <span class="version">v2.1.0</span>
-                        <span class="size">42 MB</span>
+                        <span class="size">SHA: c3d4e5f6</span>
                     </div>
-                    <a href="https://github.com/secure-code-dev/gha-security/releases/latest/download/secure-analyzer-macos.dmg" class="download-btn" download>
-                        <span>📥</span> Download for macOS
-                    </a>
+                    <button class="download-btn" onclick="showInstructions('macos')">
+                        <span>📋</span> macOS
+                    </button>
                 </div>
             </div>
         </div>
@@ -602,7 +696,150 @@
         </div>
     </footer>
 
+    <!-- Instruction Modal -->
+    <div id="instructionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <span id="modalIcon"></span>
+                    <span id="modalTitle"></span>
+                </h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modalBody">
+                <!-- Instructions will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Show instructions modal
+        function showInstructions(platform) {
+            const modal = document.getElementById('instructionModal');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            const instructions = {
+                windows: {
+                    icon: '⊞',
+                    title: 'Windows Runner Setup',
+                    content: `
+                        <p style="margin-bottom: 1rem; color: #64748b;">Add this action to your GitHub workflow for Windows runners:</p>
+                        <div class="instruction-code">
+                            <button class="copy-btn" onclick="copyCode(this, 'windows-runner-code')">Copy</button>
+                            <pre id="windows-runner-code">name: Security Check
+on: [push, pull_request]
+
+jobs:
+  security-scan:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: secure-code-dev/gha-security@a1b2c3d4e5f6
+        with:
+          token: \${{ secrets.GITHUB_TOKEN }}
+          platform: windows</pre>
+                        </div>
+                        <p style="color: #64748b; font-size: 0.9rem;">This will run security analysis on Windows runners with the latest security policies.</p>
+                    `
+                },
+                linux: {
+                    icon: '⬢',
+                    title: 'Linux Runner Setup',
+                    content: `
+                        <p style="margin-bottom: 1rem; color: #64748b;">Add this action to your GitHub workflow for Linux runners:</p>
+                        <div class="instruction-code">
+                            <button class="copy-btn" onclick="copyCode(this, 'linux-runner-code')">Copy</button>
+                            <pre id="linux-runner-code">name: Security Check
+on: [push, pull_request]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: secure-code-dev/gha-security@b2c3d4e5f6g7
+        with:
+          token: \${{ secrets.GITHUB_TOKEN }}
+          platform: linux</pre>
+                        </div>
+                        <p style="color: #64748b; font-size: 0.9rem;">This will run security analysis on Ubuntu/Linux runners with comprehensive policy checking.</p>
+                    `
+                },
+                macos: {
+                    icon: '🍎',
+                    title: 'macOS Runner Setup',
+                    content: `
+                        <p style="margin-bottom: 1rem; color: #64748b;">Add this action to your GitHub workflow for macOS runners:</p>
+                        <div class="instruction-code">
+                            <button class="copy-btn" onclick="copyCode(this, 'macos-runner-code')">Copy</button>
+                            <pre id="macos-runner-code">name: Security Check
+on: [push, pull_request]
+
+jobs:
+  security-scan:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: secure-code-dev/gha-security@c3d4e5f6g7h8
+        with:
+          token: \${{ secrets.GITHUB_TOKEN }}
+          platform: macos</pre>
+                        </div>
+                        <p style="color: #64748b; font-size: 0.9rem;">This will run security analysis on macOS runners with Apple-specific security configurations.</p>
+                    `
+                }
+            };
+            
+            const instruction = instructions[platform];
+            modalIcon.textContent = instruction.icon;
+            modalTitle.textContent = instruction.title;
+            modalBody.innerHTML = instruction.content;
+            
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('instructionModal').style.display = 'none';
+        }
+
+        // Copy code to clipboard
+        function copyCode(button, codeId) {
+            const code = document.getElementById(codeId).textContent;
+            navigator.clipboard.writeText(code).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#059669';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#059669';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+                alert('Failed to copy to clipboard');
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('instructionModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Copy to clipboard function (legacy - keeping for compatibility)
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                console.log('Copied to clipboard');
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
