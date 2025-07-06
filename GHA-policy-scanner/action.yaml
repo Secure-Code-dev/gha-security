@@ -1,0 +1,65 @@
+name: "Workflow Security Policy Scanner"
+description: "Scans GitHub workflows against security policies"
+inputs:
+  token:
+    description: "GitHub token"
+    required: true
+  platform:
+    description: "Platform name"
+    required: true
+    default: "ubuntu"
+
+runs:
+  using: "composite"
+  steps:
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install PyYAML
+      shell: bash
+      run: pip install pyyaml
+
+    - name: Run Scanner
+      shell: bash
+      run: |
+       echo "Running GHA Security Scan..."
+       mkdir -p ${{ github.workspace }}/output
+       if [[ "${{ inputs.platform }}" == "windows" ]]; then  
+          "${{ github.action_path }}/windows/scanner.exe" --output "${{ github.workspace }}/output"
+       elif [[ "${{ inputs.platform }}" == "macos" ]]; then
+         chmod +x ${{ github.action_path }}/macos/scanner         
+         ${{ github.action_path }}/macos/scanner --output ${{ github.workspace }}/output
+       else
+         chmod +x ${{ github.action_path }}/ubuntu/scanner
+         ${{ github.action_path }}/ubuntu/scanner --output ${{ github.workspace }}/output
+       fi       
+
+    - name: Upload scan score report as artifact
+      if: (env.SCORE_REPORT_PATH != '' && env.MD_FILE_PATH != '') && github.event_name != 'pull_request'
+      uses: actions/upload-artifact@v4
+      with:
+        name: scan-results
+        path: |
+          ${{ env.SCORE_REPORT_PATH }}
+          ${{ env.MD_FILE_PATH }}
+    
+    - name: Comment scorecard on PR
+      if: env.SCORE_REPORT_PATH != '' && github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.token }}
+        script: |
+          const fs = require('fs');
+          const scorecard = fs.readFileSync(process.env.SCORE_REPORT_PATH, 'utf8');
+          const body = `\n${scorecard}`;
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body
+          });
+      env:
+        SCORE_REPORT_PATH: ${{ env.SCORE_REPORT_PATH }}
