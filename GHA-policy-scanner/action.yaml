@@ -1,5 +1,5 @@
 name: "Workflow Security Policy Scanner"
-description: "Scans GitHub workflows against security policies"
+description: "Scans GitHub Workflows against security policies"
 inputs:
   token:
     description: "GitHub token"
