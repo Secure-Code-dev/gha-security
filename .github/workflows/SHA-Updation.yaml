@@ -3,6 +3,9 @@ name: Update SHA in index.html
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  
 jobs:
   update-sha:
     runs-on: ubuntu-latest
