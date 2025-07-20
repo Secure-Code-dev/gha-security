@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.20/auth0-spa-js.production.js"></script>
     <title>Secure Code LLC - Advanced Security Solutions</title>
     <style>
         * {
@@ -97,6 +98,28 @@
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #eb5424; /* Auth0 orange */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .logout-button:hover {
+            background-color: #c83c0f;
+        }
+
+        .logout-button:focus {
+            outline: 2px solid #555;
+            outline-offset: 2px;
         }
 
         /* Hero Section */
@@ -553,6 +576,7 @@
             <div class="logo">Github Action - Securing Workflow</div>
             <ul class="nav-links">
             </ul>
+            <button onclick="logout()" class="logout-button">Logout</button>
         </nav>
     </header>
 
@@ -882,5 +906,55 @@ jobs:
             }
         });
     </script>
+
+    <script>
+        let auth0 = null;
+        const config = {
+            domain: "dev-e0sbuqptc2moizwx.us.auth0.com",
+            clientId: "xYHEsEct95wliNrReFYZPge3mNSlCFf7",
+            redirectUri: "https://apps.secure-code.dev/",
+            logoutReturnTo: "https://secure-code.dev/"
+        };
+
+        // Initialize Auth0 client
+        async function configureAuth() {
+            auth0 = await createAuth0Client({
+            domain: config.domain,
+            client_id: config.clientId,
+            cacheLocation: 'memory', // you can use 'localstorage'
+            useRefreshTokens: true
+            });
+        }
+
+        async function processAuth() {
+            await configureAuth();
+            const query = window.location.search;
+            if (query.includes("code=") && query.includes("state=")) {
+            await auth0.handleRedirectCallback();
+            window.history.replaceState({}, document.title, config.redirectUri);
+            }
+            const isAuthenticated = await auth0.isAuthenticated();
+            if (!isAuthenticated) {
+            await auth0.loginWithRedirect({
+                redirect_uri: config.redirectUri
+            });
+            } else {
+            const user = await auth0.getUser();
+            console.log("Authenticated user:", user);
+            document.body.style.display = "block";
+            }
+        }
+
+        async function logout() {
+            await auth0.logout({
+            returnTo: config.logoutReturnTo
+            });
+        }
+
+        // Hide content until authenticated
+        document.body.style.display = "none";
+        processAuth();
+        </script>
+
 </body>
 </html>
