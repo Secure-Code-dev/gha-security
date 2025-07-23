@@ -754,13 +754,16 @@
                             <button class="copy-btn" onclick="copyCode(this, 'windows-runner-code')">Copy</button>
                             <pre id="windows-runner-code">name: Security Check
 on: [push, pull_request]
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   security-scan:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: secure-code-dev/gha-security@5df1800e538219cdde17fcb87ced3b4de4b81f5d
+      - uses: Secure-Code-dev/gha-security/GHA-policy-scanner@5df1800e538219cdde17fcb87ced3b4de4b81f5d
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           platform: windows</pre>
@@ -777,13 +780,16 @@ jobs:
                             <button class="copy-btn" onclick="copyCode(this, 'linux-runner-code')">Copy</button>
                             <pre id="linux-runner-code">name: Security Check
 on: [push, pull_request]
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   security-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: secure-code-dev/gha-security@5df1800e538219cdde17fcb87ced3b4de4b81f5d
+      - uses: Secure-Code-dev/gha-security/GHA-policy-scanner@5df1800e538219cdde17fcb87ced3b4de4b81f5d
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           platform: linux</pre>
@@ -800,13 +806,16 @@ jobs:
                             <button class="copy-btn" onclick="copyCode(this, 'macos-runner-code')">Copy</button>
                             <pre id="macos-runner-code">name: Security Check
 on: [push, pull_request]
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   security-scan:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: secure-code-dev/gha-security@5df1800e538219cdde17fcb87ced3b4de4b81f5d
+      - uses: Secure-Code-dev/gha-security/GHA-policy-scanner@5df1800e538219cdde17fcb87ced3b4de4b81f5d
         with:
           token: \${{ secrets.GITHUB_TOKEN }}
           platform: macos</pre>
